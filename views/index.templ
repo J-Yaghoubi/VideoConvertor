@@ -1,0 +1,91 @@
+package views
+
+import (
+    "video_convertor/views/components"
+)
+
+
+templ Index() {
+    <!DOCTYPE html>
+    <html lang="en">
+        @components.Header()
+        <head>
+            <style>
+                /* Style for server response container */
+                #response {
+                    background-color: #f3f4f6;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: 1px solid #d2d6dc;
+                    margin-top: 6px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    font-family: 'Arial', sans-serif;
+                    color: #333;
+                }
+            </style>
+        </head>
+        <body>
+            <main class="min-h-screen w-full flex flex-col justify-center items-center">
+
+                <div class="w-full max-w-xl mt-6 flex flex-col justify-center items-center">
+                    
+                    <!-- File Upload Form -->
+                    <form
+                        hx-post="/upload"
+                        hx-encoding="multipart/form-data"
+                        hx-target="#response"
+                        hx-trigger="submit"
+                        hx-swap="innerHTML"
+                        class="w-full max-w-sm"
+                    >
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="video">
+                            Select a Video File
+                        </label>
+
+                        <input 
+                            type="file" 
+                            name="video" 
+                            class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" 
+                            accept="video/*" 
+                            required
+                        />
+                        
+                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-4" for="quality">
+                            Quality Level:
+                        </label>
+                        <select 
+                            name="quality"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" 
+                            required
+                        >
+                            <option disabled selected value> -- choose an option -- </option>
+                            <option value="fhd">FHD</option>
+                            <option value="hd">HD</option>
+                            <option value="sd">SD</option>
+                        </select>
+
+                        <button class="py-1 px-4 w-full h-10 rounded-lg text-white bg-zinc-800 mt-4">
+                            Upload
+                        </button>
+                    </form>
+
+                    <!-- Display the server response -->
+                    <div id="response" class="w-full max-w-sm mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
+                        <p>After successfully uploading your video file, it will undergo conversion. Once the conversion process is complete and your video is ready, you will be able to download the converted file from the given address.</p>
+                    </div>
+
+                </div>
+            </main>
+        </body>
+        @components.Footer()
+    </html>
+    <script>
+        function reloadPage() {
+            setTimeout(function() {
+                window.location.reload();
+            }, 2000);
+        }
+    </script>
+}
+
+

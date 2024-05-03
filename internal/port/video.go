@@ -7,5 +7,5 @@ import (
 )
 
 type VideoService interface {
-	Process(ctx *gin.Context, file *multipart.FileHeader, resolution string) (*string, error)
+	Process(ctx *gin.Context, file *multipart.FileHeader, quality string) (*string, error)
 }

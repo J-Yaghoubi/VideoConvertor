@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"video_convertor/internal/config"
 	"video_convertor/internal/helper"
 	"video_convertor/internal/port"
 
@@ -25,17 +26,24 @@ func (vh VideoHandler) HandleUpload(c *gin.Context) {
 
 	file, err := c.FormFile("video")
 	if err != nil {
-		respondWithError(c, http.StatusBadRequest, fmt.Sprintf("error retrieving the video: %v", err))
+		respondWithError(c, http.StatusBadRequest, "missing video parameter")
 		return
 	}
 
-	result, err := vh.svc.Process(c, file, "sd")
+	quality, ok := c.GetPostForm("quality")
+	if !ok {
+		respondWithError(c, http.StatusBadRequest, "missing quality parameter")
+		return
+	}
+
+	result, err := vh.svc.Process(c, file, quality)
 	if err != nil {
 		respondWithError(c, http.StatusBadRequest, fmt.Sprintf("%v", err))
 		return
 	}
 
-	respondWithJSON(c, 201, result)
+	msg := fmt.Sprintf("http://%s/download/%s", config.SERVER_ADDRESS, *result)
+	respondWithText(c, 201, msg)
 	return
 }
 
@@ -49,7 +57,7 @@ func (vh VideoHandler) HandleDownload(c *gin.Context) {
 		return
 	}
 
-	if !helper.IsFileExists("./uploads/" + fileID) {
+	if !helper.IsFileExists(config.UPLOAD_DIRECTORY + fileID) {
 		respondWithError(c, http.StatusNotFound, fmt.Sprint("Not Found!"))
 		return
 	}

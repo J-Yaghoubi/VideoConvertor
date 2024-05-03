@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"video_convertor/internal/config"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +14,7 @@ import (
 func respondWithFile(c *gin.Context, code int, fileID string) {
 	// send file response
 
-	byteFile, err := os.ReadFile("./uploads/" + fileID)
+	byteFile, err := os.ReadFile(config.UPLOAD_DIRECTORY + fileID)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -21,6 +22,12 @@ func respondWithFile(c *gin.Context, code int, fileID string) {
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileID))
 	c.Data(code, "application/octet-stream", byteFile)
 
+}
+
+func respondWithText(c *gin.Context, code int, msg string) {
+	// send text response
+
+	c.String(code, msg)
 }
 
 func respondWithJSON(c *gin.Context, code int, payload interface{}) {

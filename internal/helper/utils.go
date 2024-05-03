@@ -16,10 +16,10 @@ func GetFileExtension(filename string) string {
 	return ""
 }
 
-func EncodeVideo(input, output, codec string, resolution string) error {
+func EncodeVideo(input, output, codec string, quality string) error {
 	// convert given file to requested format and delete original one
 
-	res := map[string]string{
+	resolution := map[string]string{
 		"fhd": "1920x1080",
 		"hd":  "1280x720",
 		"sd":  "640x480",
@@ -27,10 +27,10 @@ func EncodeVideo(input, output, codec string, resolution string) error {
 
 	var dimension string
 
-	if val, ok := res[resolution]; ok {
+	if val, ok := resolution[quality]; ok {
 		dimension = val
 	} else {
-		dimension = res["sd"]
+		dimension = resolution["sd"]
 	}
 
 	cmd := exec.Command("ffmpeg", "-i", input, "-vcodec", codec, "-s", dimension, output)

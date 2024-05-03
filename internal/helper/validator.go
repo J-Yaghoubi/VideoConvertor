@@ -25,7 +25,7 @@ func IsValidPath(path string) bool {
 	return validFileNamePattern.MatchString(path)
 }
 
-func IsValidateType(file *multipart.FileHeader) bool {
+func IsValidateFileType(file *multipart.FileHeader) bool {
 	// validate file mime type to ensure it is video
 
 	if file.Header.Get("Content-Type") != "video/mp4" {
@@ -41,6 +41,25 @@ func IsValidateSize(file *multipart.FileHeader) bool {
 	var maxFileSize int64 = 100_000_000
 
 	if file.Size > maxFileSize {
+		return false
+	}
+
+	return true
+}
+
+func IsValidateQuality(quality string) bool {
+	// Validate the quality value
+
+	validQuality := false
+
+	switch quality {
+	case "hd", "fhd", "sd":
+		validQuality = true
+	default:
+		validQuality = false
+	}
+
+	if !validQuality {
 		return false
 	}
 

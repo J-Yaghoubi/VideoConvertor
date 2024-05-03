@@ -2,6 +2,7 @@ package test
 
 import (
 	"testing"
+	"video_convertor/internal/config"
 	"video_convertor/internal/helper"
 )
 
@@ -10,7 +11,9 @@ func BenchmarkEncodeVideo(b *testing.B) {
 	// note: fill the inputs with valid input file and then execute test with:
 	// go test -bench=. -run=^$
 
+	var des = "output" + config.DESTINATION_FORMAT
+
 	for i := 0; i < b.N; i++ {
-		helper.EncodeVideo("input.mp4", "output.mp4", "libx264", "hd")
+		helper.EncodeVideo("input.mp4", des, config.DESTINATION_CODEC, "hd")
 	}
 }
