@@ -15,7 +15,7 @@ Please note 📌 that this is an educational project, so to deploy it in a produ
 2. Clone the project repository:
 
     ```bash
-    git clone git@github.com:J-Yaghoubi/VideoConvertor.git>
+    git clone git@github.com:J-Yaghoubi/VideoConvertor.git
     ```
 
 3. Install the required dependencies using Go modules:
@@ -38,7 +38,8 @@ Please note 📌 that this is an educational project, so to deploy it in a produ
 - Golang 🐹
 - Ffmpeg 🎥
 - Gin Framework 🌿
-
+- Templ 🌐
+- Htmx 💻
 
 
 ## License
