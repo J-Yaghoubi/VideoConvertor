@@ -7,22 +7,22 @@ import (
 
 	"video_convertor/views"
 
-	"github.com/a-h/templ"
 	"github.com/gin-gonic/gin"
 )
 
 const appTimeout = time.Second * 10
 
-func render(c *gin.Context, status int, template templ.Component) error {
-	c.Status(status)
-	return template.Render(c.Request.Context(), c.Writer)
+type viewHandler struct{}
+
+func NewViewHandler() *viewHandler {
+	return &viewHandler{}
 }
 
-func HandleIndexView(c *gin.Context) {
-	// upload a video file to start converting process
+func (vh *viewHandler) HandleIndexView(c *gin.Context) {
+	// handle index page
 
 	_, cancel := context.WithTimeout(context.Background(), appTimeout)
 	defer cancel()
 
-	render(c, http.StatusOK, views.Index())
+	respondWithTemplate(c, http.StatusOK, views.Index())
 }

@@ -29,7 +29,7 @@ Please note 📌 that this is an educational project, so to deploy it in a produ
 4. Run the application:
 
     ```bash
-    go run main.go
+    go run ./cmd/main.go
     ```
 
 5. Access the web interface at http://localhost:3000 to upload a video file and initiate the conversion process.

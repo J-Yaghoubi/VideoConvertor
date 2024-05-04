@@ -13,15 +13,24 @@ func main() {
 	var (
 		videoService = service.NewVideoService()
 		videoHandler = api.NewVideoHandler(videoService)
-		viewHandler  = api.HandleIndexView
+		viewHandler  = api.NewViewHandler()
 	)
 
 	// define new router
 	router := gin.Default()
 
-	router.GET("/", viewHandler)
-	router.POST("/upload", videoHandler.HandleUpload)
-	router.GET("/download/:fileID", videoHandler.HandleDownload)
+	// api routes
+	apiGroup := router.Group("/api")
+	{
+		apiGroup.POST("/upload", videoHandler.HandleUpload)
+		apiGroup.GET("/download/:fileID", videoHandler.HandleDownload)
+	}
+
+	// web ui routes
+	webGroup := router.Group("/")
+	{
+		webGroup.GET("/", viewHandler.HandleIndexView)
+	}
 
 	// start server
 	router.Run(config.SERVER_ADDRESS)

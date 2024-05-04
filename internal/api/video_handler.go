@@ -42,7 +42,7 @@ func (vh VideoHandler) HandleUpload(c *gin.Context) {
 		return
 	}
 
-	msg := fmt.Sprintf("http://%s/download/%s", config.SERVER_ADDRESS, *result)
+	msg := fmt.Sprintf("http://%s/api/download/%s", config.SERVER_ADDRESS, *result)
 	respondWithText(c, 201, msg)
 	return
 }

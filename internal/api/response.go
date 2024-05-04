@@ -8,6 +8,7 @@ import (
 	"os"
 	"video_convertor/internal/config"
 
+	"github.com/a-h/templ"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +22,6 @@ func respondWithFile(c *gin.Context, code int, fileID string) {
 
 	c.Header("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileID))
 	c.Data(code, "application/octet-stream", byteFile)
-
 }
 
 func respondWithText(c *gin.Context, code int, msg string) {
@@ -58,4 +58,11 @@ func respondWithError(c *gin.Context, code int, msg string) {
 	respondWithJSON(c, code, errResponse{
 		Error: msg,
 	})
+}
+
+func respondWithTemplate(c *gin.Context, code int, template templ.Component) error {
+	// send template response
+
+	c.Status(code)
+	return template.Render(c.Request.Context(), c.Writer)
 }
