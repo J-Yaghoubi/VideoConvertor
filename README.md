@@ -1,7 +1,6 @@
 # Video Convertor
 
-**Project README: Video Conversion Using Golang, Ffmpeg, and Gin Framework** 🎬
-
+**Video Conversion Using Golang, Ffmpeg, Htmx, and Gin Framework** 🎬
 
 ## Introduction
 This project aims to demonstrate the process of converting a video file using Golang with Ffmpeg and the Gin web framework. By leveraging these technologies, users can upload a video file through a web interface, have it processed with Ffmpeg for conversion, and then download the new video file.
