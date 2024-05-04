@@ -8,6 +8,8 @@ This project aims to demonstrate the process of converting a video file using Go
 
 Please note 📌 that this is an educational project, so to deploy it in a production environment, you should finalize 🏁 the project and ensure it meets production standards.
 
+![Cute Cat](docs/screenshot.png)
+
 
 ## Getting Started
 1. Ensure you have Golang and Ffmpeg installed on your system.
